@@ -1,11 +1,13 @@
 package com.trainee.anushrestha.globalsmart
 
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -15,6 +17,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +29,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+//import com.google.android.gms.wallet.button.ButtonConstants
 import com.trainee.anushrestha.globalsmart.ui.theme.GlobalSmartTheme
 
 class MainActivity : ComponentActivity() {
@@ -103,12 +109,8 @@ fun FirstRow(){
         Text(
             text = "GlobalSmart+",
             fontWeight = FontWeight.Bold,
-//                modifier = Modifier
-//                    .padding(top=44.dp),
-//                color = Color.Blue,
-//                fontSize = 30.sp
+            color = colorResource(id = R.color.blue_button),
             style = MaterialTheme.typography.titleLarge
-                .copy(Color.Blue)
         )
         Row (
             modifier= Modifier.wrapContentWidth(),
@@ -152,15 +154,12 @@ fun FirstRow(){
 fun Greetings(){
     Text(
         text = "Hi Maria!",
-
-        fontWeight = FontWeight.Bold
-
+        style = MaterialTheme.typography.headlineLarge,
     )
     Text(
         text = "Good Morning",
-
+        style = MaterialTheme.typography.bodyMedium,
         )
-
     Spacer(modifier = Modifier
         .height(20.dp)
     )
@@ -190,7 +189,7 @@ fun MobileNumber(){
                 keyboardType = KeyboardType.Number
             ),
             placeholder = {
-                Text(text = "Select your country code")
+                Text(text = "+977")
             },
 //            readOnly = true,
 //            trailingIcon = {
@@ -256,9 +255,10 @@ fun ShowHidePasswordTextField(){
 fun ForgetPasswordText( modifier: Modifier = Modifier){
         Text(
             text = "Forget password?",
-            color = Color.Blue,
-            modifier = modifier
-                .alpha(0.5f)
+            color = colorResource(id = R.color.blue_button),
+            modifier = modifier.padding(top = 13.dp),
+            style = MaterialTheme.typography.bodyMedium
+
         )
     Spacer(modifier = Modifier
         .height(10.dp)
@@ -268,11 +268,14 @@ fun ForgetPasswordText( modifier: Modifier = Modifier){
 @Composable
 fun LogInFingerprint(){
     Button(
+        shape = RectangleShape,
         onClick = {},
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth(),
-        enabled = true
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue_button))
+
     ) {
         Text(
             text = "LOG IN",
@@ -289,13 +292,14 @@ fun LogInFingerprint(){
 fun RegisterNow(){
     Row(horizontalArrangement = Arrangement.SpaceBetween){
         Text(
-            text = "Don't have an Log In?"
+            text = "Don't have an Log In?",
+            style = MaterialTheme.typography.bodyMedium
+
         )
         Text(
             text = "Register Now" ,
-            color = Color.Blue,
-            modifier = Modifier
-                .alpha(0.5f)
+            style = MaterialTheme.typography.bodyMedium,
+            color = colorResource(id = R.color.blue_button),
         )
     }
 
