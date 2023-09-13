@@ -18,6 +18,10 @@ import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.SnackbarDefaults.backgroundColor
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +34,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
@@ -61,44 +66,86 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GlobalApp(modifier : Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp)
-            .fillMaxWidth()
-    ){
-        FirstRow()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 
-        Greetings()
+        topBar = {
+                SmallTopAppBar(
+                    title= {
+                        Text(
+                            text = "Global Smart",
+                            color = colorResource(id = R.color.blue_button),
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(start = 0.dp)
+                        )
+                    },
+//                    navigationIcon = {
+//                        IconButton(onClick = { /*TODO*/ }) {
+//                            Icon(
+//                                imageVector = Icons.Filled.ArrowBack,
+//                                contentDescription = "Searching")
+//                        }
+//                    },
+                    actions = {
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_scanner),
+                                contentDescription = "Scanner",
+                                modifier = Modifier
+//                    .align(Arrangement.End)
+                                    .alpha(0.5f),
+                                )
+                        }
 
-        MobileNumber()
-
-        ShowHidePasswordTextField()
-
-        ForgetPasswordText(modifier = Modifier.align(Alignment.End))
-
-        LogInFingerprint()
-
-        RegisterNow()
-
-        Image(
-            painter = painterResource(id = R.drawable.component_11),
-            contentDescription = "carousel",
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
-
-        Spacer(modifier = Modifier
-            .height(10.dp)
-        )
-
-        ScrollingScreen()
-
-        GlobalCopyrightText(modifier = Modifier.align(Alignment.CenterHorizontally))
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                imageVector = Icons.Outlined.Search,
+                                contentDescription = "Searching"
+                            )
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Notifications,
+                                contentDescription = "Searching"
+                            )
+                        }
+                    },
+                    scrollBehavior = scrollBehavior
+                    )
+            }
+        ) {
+            Column(
+                modifier = modifier
+                    .padding(start = 16.dp,end = 16.dp)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+                Greetings()
+                MobileNumber()
+                ShowHidePasswordTextField()
+                ForgetPasswordText(modifier = Modifier.align(Alignment.End))
+                LogInFingerprint()
+                RegisterNow()
+                Image(
+                    painter = painterResource(id = R.drawable.component_11),
+                    contentDescription = "carousel",
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.Crop
+                )
+                Spacer(modifier = Modifier
+                    .height(10.dp)
+                )
+                GlobalCopyrightText(modifier = Modifier.align(Alignment.CenterHorizontally))
+            }
+        }
     }
-}
+//}
+
 
 @Composable
 fun FirstRow(){
@@ -239,7 +286,7 @@ fun ShowHidePasswordTextField(){
         }else {
             PasswordVisualTransformation()
         },
-        leadingIcon = {
+        trailingIcon = {
             Icon(painter = painterResource(id = R.drawable.ic_lock),
                 contentDescription ="password",
                 )
