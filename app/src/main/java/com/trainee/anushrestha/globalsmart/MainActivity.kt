@@ -121,7 +121,7 @@ fun GlobalApp(modifier : Modifier = Modifier) {
         ) {
             Column(
                 modifier = modifier
-                    .padding(start = 16.dp,end = 16.dp)
+                    .padding(start = 16.dp, end = 16.dp)
                     .fillMaxWidth()
                     .fillMaxHeight()
             ) {
@@ -140,6 +140,7 @@ fun GlobalApp(modifier : Modifier = Modifier) {
                 Spacer(modifier = Modifier
                     .height(10.dp)
                 )
+                ScrollingScreen()
                 GlobalCopyrightText(modifier = Modifier.align(Alignment.CenterHorizontally))
             }
         }
@@ -200,7 +201,7 @@ fun FirstRow(){
 @Composable
 fun Greetings(){
     Text(
-        text = "Hi Maria!",
+        text = "Hi Anu Shrestha!",
         style = MaterialTheme.typography.headlineLarge,
     )
     Text(
@@ -415,3 +416,11 @@ fun DefaultPreview() {
         GlobalApp()
     }
 }
+
+//@Preview()
+//@Composable
+//fun DefaultDarkPreview() {
+//    GlobalSmartTheme(darkTheme = true) {
+//        GlobalApp()
+//    }
+//}
